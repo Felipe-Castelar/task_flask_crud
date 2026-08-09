@@ -1,0 +1,115 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Task",
+        "importPath": "models.task",
+        "description": "models.task",
+        "isExtraImport": true,
+        "detail": "models.task",
+        "documentation": {}
+    },
+    {
+        "label": "Task",
+        "kind": 6,
+        "importPath": "models.task",
+        "description": "models.task",
+        "peekOfCode": "class Task:\n    def __init__(self, id, title,description,completed=False):\n        self.id = id\n        self.title = title\n        self.description = description\n        self.completed = completed\n    def to_dict(self):\n        return{\n            \"id\": self.id,\n            \"title\": self.title,",
+        "detail": "models.task",
+        "documentation": {}
+    },
+    {
+        "label": "creat_task",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def creat_task():\n    global task_id_control\n    data = request.get_json()\n    new_task = Task(id= task_id_control, title=data['title'], description=data.get(\"description\",\"tu nao adicionou nada, chefe\"))\n    task_id_control +=1\n    tasks.append(new_task)\n    print(tasks)\n    return jsonify({\"message\":'Nova tarefa criada com sucesso'})\n@app.route('/tasks', methods=['GET'])\ndef get_tasks():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_tasks",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_tasks():\n    task_list = [task.to_dict() for task in tasks]\n    output = {\n                \"title\":task_list,\n                \"total_tasks\":len(task_list)\n                }\n    return jsonify(output)\n@app.route('/tasks/<int:id>', methods=['GET'])\ndef get_task(id):\n    for t in tasks:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "get_task",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def get_task(id):\n    for t in tasks:\n        if t.id== id:\n            return jsonify(t.to_dict())\n    return jsonify({\"message\":\"Nao foi possivel encontrar essa tarefa\"}), 404\n@app.route('/tasks/<int:id>', methods=['PUT'])\ndef update_task(id):\n    task = None\n    for t in tasks:\n        if t.id == id:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "update_task",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def update_task(id):\n    task = None\n    for t in tasks:\n        if t.id == id:\n            task = t\n    if task == None:\n         return jsonify({\"message\":\"Nao foi possivel encontrar essa tarefa\"}), 404\n    data = request.get_json()\n    task.title = data['title']\n    task.description = data['description']",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "delete_task",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def delete_task(id):\n    task = None\n    for t in tasks:\n        if t.id == id:\n            task = t\n    if not task:\n        return jsonify({\"message\":\"Nao foi possivel encontrar essa tarefa\"}),404\n    tasks.remove(task)\n    return jsonify({\"message\":\"Tarefa deletada com sucesso\"})\nif __name__ == \"__main__\":",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\ntasks = []\ntask_id_control = 1\n@app.route('/tasks', methods=['POST'])\ndef creat_task():\n    global task_id_control\n    data = request.get_json()\n    new_task = Task(id= task_id_control, title=data['title'], description=data.get(\"description\",\"tu nao adicionou nada, chefe\"))\n    task_id_control +=1\n    tasks.append(new_task)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "tasks",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "tasks = []\ntask_id_control = 1\n@app.route('/tasks', methods=['POST'])\ndef creat_task():\n    global task_id_control\n    data = request.get_json()\n    new_task = Task(id= task_id_control, title=data['title'], description=data.get(\"description\",\"tu nao adicionou nada, chefe\"))\n    task_id_control +=1\n    tasks.append(new_task)\n    print(tasks)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "task_id_control",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "task_id_control = 1\n@app.route('/tasks', methods=['POST'])\ndef creat_task():\n    global task_id_control\n    data = request.get_json()\n    new_task = Task(id= task_id_control, title=data['title'], description=data.get(\"description\",\"tu nao adicionou nada, chefe\"))\n    task_id_control +=1\n    tasks.append(new_task)\n    print(tasks)\n    return jsonify({\"message\":'Nova tarefa criada com sucesso'})",
+        "detail": "app",
+        "documentation": {}
+    }
+]
